@@ -1,0 +1,35 @@
+<div class="auth-container">
+  <mat-card class="auth-card">
+    <h2 class="auth-title">Login</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" required>
+      </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
+            <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+        </mat-form-field>
+
+
+      <button mat-raised-button color="primary" class="full-width" [disabled]="loginForm.invalid || loading">
+        <mat-progress-spinner *ngIf="loading" mode="indeterminate" diameter="20" color="accent"></mat-progress-spinner>
+        <span *ngIf="!loading">Login</span>
+        </button>
+      <mat-error *ngIf="loginForm.invalid && loginForm.touched">
+        Per favore, completa tutti i campi richiesti.
+      </mat-error>
+
+    </form>
+
+    <div class="auth-footer">
+      <span>Non hai un account?</span>
+      <a routerLink="/auth/register">Registrati</a>
+    </div>
+  </mat-card>
+</div>

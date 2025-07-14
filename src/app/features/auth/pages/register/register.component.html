@@ -1,0 +1,48 @@
+<div class="auth-container">
+  <mat-card class="auth-card">
+    <h2 class="auth-title">Registrazione</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Cognome</mat-label>
+        <input matInput formControlName="cognome" required>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" required>
+      </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
+            <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+        </mat-form-field>
+
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Ruolo</mat-label>
+        <mat-select formControlName="ruolo" required>
+          <mat-option value="user">User</mat-option>
+          <mat-option value="admin">Admin</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="full-width" [disabled]="registerForm.invalid">
+        Registrati
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <span>Hai già un account?</span>
+      <a routerLink="/auth/login">Accedi</a>
+    </div>
+  </mat-card>
+</div>

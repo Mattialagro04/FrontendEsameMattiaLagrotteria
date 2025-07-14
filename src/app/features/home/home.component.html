@@ -1,0 +1,25 @@
+<div class="home-container" *ngIf="user; else loading">
+  <h1>Benvenuto, {{ user.nome }} {{ user.cognome }}!</h1>
+  <p>Ruolo: <strong>{{ user.ruolo }}</strong></p>
+
+  <ng-container *ngIf="isAdmin">
+    <h2>Lista degli Utenti</h2>
+    <mat-list *ngIf="users.length > 0; else noUsers">
+      <mat-list-item *ngFor="let u of users">
+        {{ u.nome }} {{ u.cognome }} - {{ u.email }} ({{ u.ruolo }})
+      </mat-list-item>
+    </mat-list>
+    <ng-template #noUsers>
+      <p>Nessun utente trovato.</p>
+    </ng-template>
+  </ng-container>
+
+  <ng-container *ngIf="!isAdmin">
+    <h2>Contenuti riservati agli utenti standard</h2>
+    <p>Qui puoi vedere le tue info o accedere a funzioni personalizzate.</p>
+  </ng-container>
+</div>
+
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>

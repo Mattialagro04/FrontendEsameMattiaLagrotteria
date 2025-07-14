@@ -1,0 +1,39 @@
+<mat-toolbar color="primary" class="header-toolbar">
+  <!-- Logo che porta sempre alla home (protetta da guardia) -->
+  <a mat-button routerLink="/home" class="logo">👤 Gestione Utenti</a>
+  
+  <span class="spacer"></span>
+
+  <!-- 
+    Usiamo un unico ng-container con la pipe async.
+    'currentUser$ | async as user' fa due cose:
+    1. Si sottoscrive all'Observable currentUser$.
+    2. Se l'Observable emette un valore "truthy" (un oggetto utente), lo assegna
+       alla variabile 'user' e mostra il contenuto del <ng-container>.
+    Se l'Observable emette un valore "falsy" (null), mostra il blocco #loggedOut.
+  -->
+  <ng-container *ngIf="currentUser$ | async as user; else loggedOut">
+    <!-- Blocco per l'utente AUTENTICATO -->
+    <span class="welcome-message">Ciao, {{ user.nome }}!</span>
+    
+    <!-- Aggiungeremo il link Admin qui in seguito, se necessario -->
+    <!-- <button *ngIf="user.ruolo === 'admin'" mat-button routerLink="/admin">Admin</button> -->
+    
+    <button mat-button routerLink="/profilo">Profilo</button>
+    <button mat-button (click)="logout()">Logout</button>
+  </ng-container>
+
+  <ng-template #loggedOut>
+    <!-- Blocco per l'utente NON AUTENTICATO -->
+    <button mat-button routerLink="/auth/login">Login</button>
+    <button mat-button routerLink="/auth/register">Registrati</button>
+  </ng-template>
+
+  <!-- Pulsante per il tema (se presente) -->
+  <!-- 
+  <button mat-icon-button (click)="toggleTheme()" matTooltip="Cambia tema">
+    <mat-icon>{{ themeService.currentTheme === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
+  </button>
+  -->
+
+</mat-toolbar>

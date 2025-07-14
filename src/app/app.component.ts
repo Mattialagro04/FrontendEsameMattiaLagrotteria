@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './core/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,15 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'FrontendEsameMattiaLagrotteria';
+  title = 'FrontendGestioneUtenti';
+  appReady = false;
+
+  constructor(private authService: AuthService) { }
+
+  ngOnInit() {
+    this.authService.checkTokenOnLoad().then(() => {
+      this.appReady = true;
+    });
+  }
+
 }
